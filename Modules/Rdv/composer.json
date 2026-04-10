@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/rdv",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Rdv\\": "app/",
+            "Modules\\Rdv\\Database\\Factories\\": "database/factories/",
+            "Modules\\Rdv\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Rdv\\Tests\\": "tests/"
+        }
+    }
+}

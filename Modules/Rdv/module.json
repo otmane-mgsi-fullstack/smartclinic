@@ -1,0 +1,11 @@
+{
+    "name": "Rdv",
+    "alias": "rdv",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Rdv\\Providers\\RdvServiceProvider"
+    ],
+    "files": []
+}

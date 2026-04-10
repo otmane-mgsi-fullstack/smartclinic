@@ -1,0 +1,11 @@
+{
+    "name": "Ordonnance",
+    "alias": "ordonnance",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Ordonnance\\Providers\\OrdonnanceServiceProvider"
+    ],
+    "files": []
+}

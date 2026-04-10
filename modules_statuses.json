@@ -1,0 +1,15 @@
+{
+    "Patients": true,
+    "Medecins": true,
+    "RDV": true,
+    "Facturation": true,
+    "Auth": true,
+    "Rdv": true,
+    "Admin": true,
+    "Patient": true,
+    "Medecin": true,
+    "Consultation": true,
+    "Ordonnance": true,
+    "Document": true,
+    "Notification": true
+}

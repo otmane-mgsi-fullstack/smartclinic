@@ -1,0 +1,11 @@
+{
+    "name": "Facturation",
+    "alias": "facturation",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Facturation\\Providers\\FacturationServiceProvider"
+    ],
+    "files": []
+}
