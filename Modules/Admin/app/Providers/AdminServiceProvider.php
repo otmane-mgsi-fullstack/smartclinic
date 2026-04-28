@@ -36,11 +36,11 @@ class AdminServiceProvider extends ModuleServiceProvider
 
     /**
      * Define module schedules.
-     * 
+     *
      * @param $schedule
      */
     // protected function configureSchedules(Schedule $schedule): void
     // {
-    //     $schedule->command('inspire')->hourly();
+    //     $php artisan route:listschedule->command('inspire')->hourly();
     // }
 }

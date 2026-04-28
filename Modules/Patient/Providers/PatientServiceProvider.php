@@ -49,11 +49,16 @@ class PatientServiceProvider extends ModuleServiceProvider
 
 
 
-    public function boot():void
+
+
+
+
+    public function boot(): void
     {
-        View::addNamespace(
-            'Patient',
-            base_path('Modules/Patient/resources/views')
+
+        $this->loadViewsFrom(
+            module_path('Patient', 'Resources/views'),
+            'patient'
         );
     }
 }

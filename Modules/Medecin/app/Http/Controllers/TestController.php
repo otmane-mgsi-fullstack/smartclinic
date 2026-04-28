@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Admin\Http\Controllers;
+namespace Modules\Medecin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin::index');
+        return view('medecin::index');
     }
 
     /**
@@ -20,7 +20,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        return view('medecin::create');
     }
 
     /**
@@ -33,7 +33,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        return view('admin::show');
+        return view('medecin::show');
     }
 
     /**
@@ -41,7 +41,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        return view('medecin::edit');
     }
 
     /**

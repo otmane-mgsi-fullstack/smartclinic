@@ -1,0 +1,144 @@
+.stats4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 22px; }
+.scard {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 13px; padding: 16px 18px;
+    box-shadow: var(--sh);
+    animation: up 0.4s ease both;
+    transition: transform 0.18s;
+}
+.scard:hover { transform: translateY(-2px); }
+.scard:nth-child(1){animation-delay:.06s}
+.scard:nth-child(2){animation-delay:.10s}
+.scard:nth-child(3){animation-delay:.14s}
+.scard:nth-child(4){animation-delay:.18s}
+
+.scard-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.scard-ico { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; font-size: 16px; }
+.scard-ico.blue  { background: var(--blue-lt);  color: var(--blue); }
+.scard-ico.green { background: var(--green-lt); color: var(--green); }
+.scard-ico.red   { background: var(--red-lt);   color: var(--red); }
+.scard-ico.amber { background: var(--amber-lt); color: var(--amber); }
+
+.scard-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.scard-val   { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; line-height: 1; margin: 4px 0; }
+.scard-note  { font-size: 12px; color: var(--muted); }
+.scard-note.ok   { color: var(--green); font-weight: 700; }
+.scard-note.warn { color: var(--amber); font-weight: 700; }
+
+/* ── MAIN CONTENT GRID ── */
+.content-grid { display: grid; grid-template-columns: 1fr 280px; gap: 18px; margin-bottom: 18px; }
+
+.card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px;
+    box-shadow: var(--sh); animation: up 0.4s ease 0.22s both;
+}
+.card-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.card-title { font-size: 14.5px; font-weight: 700; }
+.card-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── PROCHAINS RDV ── */
+.rdv-list { display: flex; flex-direction: column; gap: 12px; }
+.rdv-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    transition: all 0.16s; cursor: pointer;
+}
+.rdv-item:hover { border-color: var(--blue-md); background: var(--blue-lt); }
+.rdv-item.next { border-color: var(--blue-md); background: var(--blue-lt); }
+
+.rdv-date-box {
+    min-width: 46px; text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 9px; padding: 6px 4px;
+}
+.rdv-item.next .rdv-date-box { background: var(--blue); border-color: var(--blue); }
+.rdv-day   { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--text); line-height: 1; }
+.rdv-item.next .rdv-day { color: #fff; }
+.rdv-month { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: .06em; }
+.rdv-item.next .rdv-month { color: rgba(255,255,255,.75); }
+
+.rdv-info { flex: 1; }
+.rdv-title { font-size: 13.5px; font-weight: 700; }
+.rdv-meta  { font-size: 12px; color: var(--muted); margin-top: 2px; display: flex; align-items: center; gap: 10px; }
+.rdv-meta span { display: flex; align-items: center; gap: 4px; }
+
+.rdv-status {
+    font-size: 11px; font-weight: 700;
+    padding: 3px 9px; border-radius: 6px;
+}
+.rdv-status.ok   { background: var(--green-lt); color: var(--green); }
+.rdv-status.att  { background: var(--amber-lt); color: var(--amber); }
+
+/* ── ORDONNANCES / MEDICAMENTS ── */
+.med-list { display: flex; flex-direction: column; gap: 10px; }
+.med-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px;
+}
+.med-ico {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: grid; place-items: center; font-size: 16px; flex-shrink: 0;
+}
+.med-name  { font-size: 13px; font-weight: 700; }
+.med-dose  { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.med-stock {
+    margin-left: auto; font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 6px;
+}
+.med-stock.ok   { background: var(--green-lt); color: var(--green); }
+.med-stock.low  { background: var(--red-lt);   color: var(--red); }
+
+/* ── BOTTOM ROW ── */
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+/* ── ANALYSES ── */
+.analyse-list { display: flex; flex-direction: column; gap: 10px; }
+.analyse-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px; border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.15s;
+}
+.analyse-item:hover { border-color: var(--blue-md); background: var(--blue-lt); }
+.analyse-name  { font-size: 13px; font-weight: 700; flex: 1; }
+.analyse-val   { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; }
+.analyse-val.ok   { color: var(--green); }
+.analyse-val.warn { color: var(--amber); }
+.analyse-val.bad  { color: var(--red); }
+.analyse-date  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.analyse-bar-wrap { width: 70px; }
+.analyse-bar-bg { background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; }
+.analyse-bar-fill { height: 100%; border-radius: 4px; }
+
+/* ── CONTACTS MEDECIN ── */
+.doc-contact {
+    display: flex; align-items: center; gap: 13px;
+    padding: 13px 14px;
+    border-radius: 11px; border: 1px solid var(--border);
+    margin-bottom: 10px; cursor: pointer; transition: all 0.15s;
+}
+.doc-contact:hover { border-color: var(--blue-md); background: var(--blue-lt); }
+.dc-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 13px; font-weight: 800; flex-shrink: 0;
+}
+.dc-name { font-size: 13.5px; font-weight: 700; }
+.dc-spec { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.dc-action {
+    margin-left: auto; width: 32px; height: 32px; border-radius: 8px;
+    background: var(--blue-lt); color: var(--blue);
+    display: grid; place-items: center; font-size: 15px;
+}
+
+@keyframes up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }

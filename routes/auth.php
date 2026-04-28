@@ -60,14 +60,14 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/admin/dashboard', function () {
-    return view('Admin::dashboard.index');
+    return view('admin::dashboard.index');
 })->name('admin.dashboard');
 
 Route::get('/medecin/dashboard', function () {
-    return view('Medecin::dashboard.index');
+    return view('medecin::dashboard.index');
 })->name('medecin.dashboard');
 
 
 Route::get('/patient/dashboard', function () {
-    return view('Patient::dashboard.index');
+    return view('patient::dashboard.index');
 })->name('patient.dashboard');

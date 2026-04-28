@@ -49,7 +49,7 @@ class MedecinServiceProvider extends ModuleServiceProvider
     public function boot():void
     {
         View::addNamespace(
-            'Medecin',
+            'medecin',
             base_path('Modules/Medecin/resources/views')
         );
     }

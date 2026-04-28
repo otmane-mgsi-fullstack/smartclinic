@@ -15,13 +15,17 @@
             }
         }
     },
+
+
+
     "autoload": {
         "psr-4": {
-            "Modules\\Admin\\": "app/",
-            "Modules\\Admin\\Database\\Factories\\": "database/factories/",
-            "Modules\\Admin\\Database\\Seeders\\": "database/seeders/"
+            "App\\": "app/",
+            "Modules\\": "Modules/"
         }
     },
+
+
     "autoload-dev": {
         "psr-4": {
             "Modules\\Admin\\Tests\\": "tests/"

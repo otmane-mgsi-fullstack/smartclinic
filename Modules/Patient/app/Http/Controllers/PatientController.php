@@ -12,7 +12,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('Patient::index');
+        return view('patient::dashboard.index');
     }
 
     /**

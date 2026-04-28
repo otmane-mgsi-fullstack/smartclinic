@@ -1,9 +1,10 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Modules\Patient\Http\Controllers\PatientController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('patient', PatientController::class)->names('patient');
-});
+Route::middleware(['auth', 'role:patient'])->group(function () {
 
+Route::get('/patient/dashboard', [PatientController::class, 'index'])
+->name('patient.dashboard');
+
+});

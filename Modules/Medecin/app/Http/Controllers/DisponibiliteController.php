@@ -1,17 +1,18 @@
 <?php
 
 namespace Modules\Medecin\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MedecinController extends Controller
+class DisponibiliteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('medecin::dashboard.index');
+        return view('medecin::dashboard.disponibilite');
     }
 
     /**
