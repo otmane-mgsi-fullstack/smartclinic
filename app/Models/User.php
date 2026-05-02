@@ -39,7 +39,10 @@ class User extends Authenticatable
     {
         return $this->role === 'medecin';
     }
-
+    public function medecin()
+    {
+        return $this->hasOne(\Modules\Medecin\App\Models\Medecin::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

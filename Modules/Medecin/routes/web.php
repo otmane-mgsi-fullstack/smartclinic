@@ -14,7 +14,13 @@ Route::middleware(['auth', 'role:medecin'])->group(function () {
         ->name('medecin.dashboard');
 
     Route::get('/medecin/dispo', [DisponibiliteController::class, 'index'])
-        ->name('medecin.dispo');
+        ->name('medecin.dispo.index');
+
+
+    Route::post('/medecin/dispo', [DisponibiliteController::class, 'store'])
+        ->name('medecin.dispo.store');
+
+
 
 });
 

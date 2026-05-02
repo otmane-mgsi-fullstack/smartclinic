@@ -178,8 +178,8 @@
     </div>
 
     <div class="nav-group-label">Mon espace</div>
-    <div class="nav-link active"><a href="{{route('medecin.dashboard')}}"><i class="bi bi-grid-1x2"></i>Tableau de bord </a></div>
-    <div class="nav-link"><a href="{{route('medecin.dispo')}}"><i class="bi bi-calendar-week"></i> Mon planning </a></div>
+    <div class="nav-link active"><a href="{{ route('medecin.dashboard') }}"><i class="bi bi-grid-1x2"></i>Tableau de bord </a></div>
+    <div class="nav-link"><a href="{{route('medecin.dispo.index')}}"><i class="bi bi-calendar-week"></i> Mon planning </a></div>
     <div class="nav-link"><i class="bi bi-person-lines-fill"></i> Mes patients <span class="badge-num">3</span></div>
     <div class="nav-link"><i class="bi bi-folder2-open"></i> Dossiers médicaux</div>
 
@@ -220,7 +220,7 @@
     <!-- TOPBAR -->
     <div class="topbar">
         <div>
-            <div class="greeting">Bonjour, <em>Dr. Boubbou</em> 👋</div>
+            <div class="greeting">Bonjour, <em></em> 👋</div>
             <div class="topbar-sub">Mardi 7 avril 2026 · Vous avez 12 consultations aujourd'hui</div>
         </div>
         <div class="topbar-actions">
