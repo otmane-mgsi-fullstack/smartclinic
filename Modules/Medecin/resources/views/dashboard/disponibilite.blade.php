@@ -551,44 +551,38 @@
 
 
         <div class="toolbar">
+            <form method="GET" id="filter-form">
+                <div class="row g-2 align-items-center">
 
-            <form method="GET" id="filter-form" style="display:flex; gap:10px; align-items:center;">
+                    {{-- Date --}}
+                    <div class="col-md-6">
+                        <input
+                            type="date"
+                            name="date"
+                            class="form-control"
+                            value="{{ request('date') }}"
+                            onchange="this.form.submit();"
+                        >
+                    </div>
 
-                {{-- 📅 Date --}}
-                <div class="date-picker-wrap">
-            <span class="cal-icon">
-                <!-- SVG -->
-            </span>
+                    {{-- Statut --}}
+                    <div class="col-md-6">
+                        <select name="statut" class="form-select" onchange="this.form.submit();">
+                            <option value="">Tous les statuts</option>
+                            <option value="disponible" {{ request('statut') == 'disponible' ? 'selected' : '' }}>
+                                Disponible
+                            </option>
+                            <option value="reserve" {{ request('statut') == 'reserve' ? 'selected' : '' }}>
+                                Réservé
+                            </option>
+                            <option value="indisponible" {{ request('statut') == 'indisponible' ? 'selected' : '' }}>
+                                Indisponible
+                            </option>
+                        </select>
+                    </div>
 
-                    <input
-                        type="date"
-                        name="date"
-                        value="{{ request('date') }}"
-                        onchange="this.form.submit();"
-                    >
                 </div>
-
-                {{-- 📌 Statut --}}
-                <select name="statut" onchange="this.form.submit();">
-                    <option value="">Tous les statuts</option>
-                    <option value="disponible" {{ request('statut') == 'disponible' ? 'selected' : '' }}>
-                        Disponible
-                    </option>
-                    <option value="reserve" {{ request('statut') == 'reserve' ? 'selected' : '' }}>
-                        Réservé
-                    </option>
-                    <option value="indisponible" {{ request('statut') == 'indisponible' ? 'selected' : '' }}>
-                        Indisponible
-                    </option>
-                </select>
-
             </form>
-
-            {{-- 🔄 Reset --}}
-            <a href="{{ route('medecin.dispo.indexp') }}" class="btn-cancel">
-                Tous les créneaux
-            </a>
-
         </div>
 
 

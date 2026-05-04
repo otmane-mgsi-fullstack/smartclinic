@@ -40,6 +40,15 @@ class Medecin extends Model
     {
         return $this->hasMany(\Modules\Medecin\App\Models\Disponibilite::class);
     }
+
+
+    public function hasDisponibilites()
+    {
+        // Vérifie si le médecin a au moins un créneau libre
+        return $this->disponibilites()->where('statut', 'disponible')->exists();
+    }
+
+
     // protected static function newFactory(): MedecinFactory
     // {
     //     // return MedecinFactory::new();

@@ -18,321 +18,125 @@
 @section('content')
 
 
-    <!-- STATS -->
-    <div class="stats4">
-        <div class="scard">
-            <div class="scard-top">
-                <div class="scard-ico blue"><i class="bi bi-calendar-check"></i></div>
-                <i class="bi bi-chevron-right" style="color:var(--hint);font-size:13px;"></i>
-            </div>
-            <div class="scard-label">Prochain RDV</div>
-            <div class="scard-val">10 Avr</div>
-            <div class="scard-note">Dr. Boubbou · 10h00</div>
-        </div>
-        <div class="scard">
-            <div class="scard-top">
-                <div class="scard-ico green"><i class="bi bi-heart-pulse"></i></div>
-                <i class="bi bi-chevron-right" style="color:var(--hint);font-size:13px;"></i>
-            </div>
-            <div class="scard-label">Tension artérielle</div>
-            <div class="scard-val">128/82</div>
-            <div class="scard-note ok">✓ Contrôlée</div>
-        </div>
-        <div class="scard">
-            <div class="scard-top">
-                <div class="scard-ico amber"><i class="bi bi-droplet"></i></div>
-                <i class="bi bi-chevron-right" style="color:var(--hint);font-size:13px;"></i>
-            </div>
-            <div class="scard-label">Glycémie à jeun</div>
-            <div class="scard-val">1.28 g/L</div>
-            <div class="scard-note warn">⚠ Légèrement élevée</div>
-        </div>
-        <div class="scard">
-            <div class="scard-top">
-                <div class="scard-ico red"><i class="bi bi-capsule"></i></div>
-                <i class="bi bi-chevron-right" style="color:var(--hint);font-size:13px;"></i>
-            </div>
-            <div class="scard-label">Médicaments</div>
-            <div class="scard-val">3</div>
-            <div class="scard-note warn">1 stock faible</div>
-        </div>
-    </div>
 
-    <!-- CONTENT GRID -->
-    <div class="content-grid">
-
-        <!-- PROCHAINS RDV -->
+    <div class="grid2">
         <div class="card">
-            <div class="card-hd">
-                <div>
-                    <div class="card-title">Mes rendez-vous</div>
-                    <div class="card-sub">Consultations à venir</div>
-                </div>
-                <button style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
-                    <i class="bi bi-plus"></i> Nouveau RDV
-                </button>
+            <div class="card-head">
+                <span class="card-title">Mes rendez-vous</span>
+                <span class="card-link">Voir tout →</span>
             </div>
-            <div class="rdv-list">
-                <div class="rdv-item next">
-                    <div class="rdv-date-box">
-                        <div class="rdv-day">10</div>
-                        <div class="rdv-month">Avr</div>
-                    </div>
-                    <div class="rdv-info">
-                        <div class="rdv-title">Consultation générale</div>
-                        <div class="rdv-meta">
-                            <span><i class="bi bi-person-circle"></i> Dr. Boubbou</span>
-                            <span><i class="bi bi-clock"></i> 10:00 – 10:30</span>
-                        </div>
-                    </div>
-                    <span class="rdv-status ok">Confirmé</span>
+
+            <div class="rdv-item">
+                <div class="rdv-date">
+                    <div class="day">08</div>
+                    <div class="month">MAI</div>
                 </div>
-                <div class="rdv-item">
-                    <div class="rdv-date-box">
-                        <div class="rdv-day">22</div>
-                        <div class="rdv-month">Avr</div>
+                <div class="rdv-info">
+                    <div class="rdv-doctor">Dr. Youssef Alami</div>
+                    <div class="rdv-spec">Cardiologue — Clinique Ibn Sina</div>
+                    <div class="rdv-time">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color:var(--hint)"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
+                        10h30
                     </div>
-                    <div class="rdv-info">
-                        <div class="rdv-title">Bilan sanguin</div>
-                        <div class="rdv-meta">
-                            <span><i class="bi bi-hospital"></i> Labo Central</span>
-                            <span><i class="bi bi-clock"></i> 08:00 – 08:30</span>
-                        </div>
-                    </div>
-                    <span class="rdv-status ok">Confirmé</span>
                 </div>
-                <div class="rdv-item">
-                    <div class="rdv-date-box">
-                        <div class="rdv-day">05</div>
-                        <div class="rdv-month">Mai</div>
-                    </div>
-                    <div class="rdv-info">
-                        <div class="rdv-title">Suivi cardiologique</div>
-                        <div class="rdv-meta">
-                            <span><i class="bi bi-person-circle"></i> Dr. Martin</span>
-                            <span><i class="bi bi-clock"></i> 14:30 – 15:00</span>
-                        </div>
-                    </div>
-                    <span class="rdv-status att">En attente</span>
+                <span class="badge badge-blue">Confirmé</span>
+            </div>
+
+            <div class="rdv-item">
+                <div class="rdv-date">
+                    <div class="day">21</div>
+                    <div class="month">MAI</div>
                 </div>
-                <div class="rdv-item">
-                    <div class="rdv-date-box">
-                        <div class="rdv-day">18</div>
-                        <div class="rdv-month">Mai</div>
+                <div class="rdv-info">
+                    <div class="rdv-doctor">Dr. Fatima Benali</div>
+                    <div class="rdv-spec">Généraliste — Cabinet Oud Melloul</div>
+                    <div class="rdv-time">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color:var(--hint)"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
+                        09h00
                     </div>
-                    <div class="rdv-info">
-                        <div class="rdv-title">Renouvellement ordonnance</div>
-                        <div class="rdv-meta">
-                            <span><i class="bi bi-person-circle"></i> Dr. Boubbou</span>
-                            <span><i class="bi bi-clock"></i> 11:00 – 11:30</span>
-                        </div>
-                    </div>
-                    <span class="rdv-status ok">Confirmé</span>
                 </div>
+                <span class="badge badge-amber">En attente</span>
+            </div>
+
+            <div class="rdv-item">
+                <div class="rdv-date" style="background:var(--bg)">
+                    <div class="day" style="color:var(--muted)">12</div>
+                    <div class="month" style="color:var(--hint)">AVR</div>
+                </div>
+                <div class="rdv-info">
+                    <div class="rdv-doctor">Dr. Khalid Mourad</div>
+                    <div class="rdv-spec">Dermatologue — Polyclinique</div>
+                    <div class="rdv-time">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color:var(--hint)"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
+                        14h15
+                    </div>
+                </div>
+                <span class="badge badge-green">Terminé</span>
             </div>
         </div>
 
-
-
-
-
-
-        <!-- MEDICAMENTS -->
         <div class="card">
-            <div class="card-hd">
-                <div>
-                    <div class="card-title">Mes médicaments</div>
-                    <div class="card-sub">Traitement en cours</div>
-                </div>
-                <i class="bi bi-three-dots" style="color:var(--muted);font-size:16px;cursor:pointer;"></i>
-            </div>
-            <div class="med-list">
-                <div class="med-item">
-                    <div class="med-ico" style="background:#ecfdf5;color:var(--green);">💊</div>
-                    <div>
-                        <div class="med-name">Metformine</div>
-                        <div class="med-dose">500mg · 2× par jour</div>
-                    </div>
-                    <span class="med-stock ok">28 jours</span>
-                </div>
-                <div class="med-item">
-                    <div class="med-ico" style="background:#eef3ff;color:var(--blue);">💊</div>
-                    <div>
-                        <div class="med-name">Amlodipine</div>
-                        <div class="med-dose">5mg · 1× le matin</div>
-                    </div>
-                    <span class="med-stock ok">21 jours</span>
-                </div>
-                <div class="med-item" style="border-color:#fecdd3;">
-                    <div class="med-ico" style="background:var(--red-lt);color:var(--red);">💊</div>
-                    <div>
-                        <div class="med-name">Atorvastatine</div>
-                        <div class="med-dose">20mg · 1× le soir</div>
-                    </div>
-                    <span class="med-stock low">5 jours ⚠</span>
-                </div>
+            <div class="card-head">
+                <span class="card-title">Mes documents</span>
+                <span class="card-link">Voir tout →</span>
             </div>
 
-            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
-                <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Mes médecins</div>
-                <div class="doc-contact">
-                    <div class="dc-avatar" style="background:#eef3ff;color:var(--blue);">DB</div>
-                    <div>
-                        <div class="dc-name">Dr. Boubbou</div>
-                        <div class="dc-spec">Médecin traitant</div>
-                    </div>
-                    <div class="dc-action"><i class="bi bi-telephone"></i></div>
+            <div class="doc-item">
+                <div class="doc-icon doc-pdf">PDF</div>
+                <div class="doc-info">
+                    <div class="doc-name">Ordonnance — Dr. Alami</div>
+                    <div class="doc-date">2 mai 2026</div>
                 </div>
-                <div class="doc-contact">
-                    <div class="dc-avatar" style="background:#ecfdf5;color:var(--green);">MT</div>
-                    <div>
-                        <div class="dc-name">Dr. Martin</div>
-                        <div class="dc-spec">Cardiologue</div>
-                    </div>
-                    <div class="dc-action"><i class="bi bi-telephone"></i></div>
+                <span class="doc-dl">↓ Télécharger</span>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon doc-word">DOC</div>
+                <div class="doc-info">
+                    <div class="doc-name">Rapport cardiologie</div>
+                    <div class="doc-date">28 avr. 2026</div>
                 </div>
+                <span class="doc-dl">↓ Télécharger</span>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon doc-pdf">PDF</div>
+                <div class="doc-info">
+                    <div class="doc-name">Résultats analyses sanguines</div>
+                    <div class="doc-date">15 avr. 2026</div>
+                </div>
+                <span class="doc-dl">↓ Télécharger</span>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon doc-pdf">PDF</div>
+                <div class="doc-info">
+                    <div class="doc-name">Ordonnance — Dr. Benali</div>
+                    <div class="doc-date">12 avr. 2026</div>
+                </div>
+                <span class="doc-dl">↓ Télécharger</span>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon doc-word">DOC</div>
+                <div class="doc-info">
+                    <div class="doc-name">Compte-rendu dermatologue</div>
+                    <div class="doc-date">12 avr. 2026</div>
+                </div>
+                <span class="doc-dl">↓ Télécharger</span>
             </div>
         </div>
     </div>
 
-    <!-- BOTTOM ROW -->
-    <div class="bottom-row">
+    <div class="msg-coming">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+        <h3>Messagerie avec le médecin</h3>
+        <p>Bientôt disponible — posez vos questions à votre médecin directement depuis votre espace patient,<br>recevez des réponses sécurisées et gardez un historique de vos échanges.</p>
+        <button class="btn-notify" onclick="sendPrompt('Je veux en savoir plus sur la fonctionnalité de messagerie avec le médecin')">Me notifier au lancement ↗</button>
+    </div>
 
-        <!-- ANALYSES -->
-        <div class="card">
-            <div class="card-hd">
-                <div>
-                    <div class="card-title">Résultats d'analyses</div>
-                    <div class="card-sub">Derniers bilans — 22 mars 2026</div>
-                </div>
-                <button style="background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-md);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">
-                    Voir tout
-                </button>
-            </div>
-            <div class="analyse-list">
-                <div class="analyse-item">
-                    <div style="width:34px;height:34px;border-radius:9px;background:var(--green-lt);color:var(--green);display:grid;place-items:center;font-size:16px;flex-shrink:0;">🩸</div>
-                    <div style="flex:1;">
-                        <div class="analyse-name">Hémoglobine</div>
-                        <div class="analyse-date">22 mars 2026</div>
-                    </div>
-                    <div>
-                        <div class="analyse-val ok">13.8 g/dL</div>
-                        <div class="analyse-bar-wrap" style="margin-top:4px;">
-                            <div class="analyse-bar-bg"><div class="analyse-bar-fill" style="width:75%;background:var(--green);"></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="analyse-item">
-                    <div style="width:34px;height:34px;border-radius:9px;background:var(--amber-lt);color:var(--amber);display:grid;place-items:center;font-size:16px;flex-shrink:0;">🔬</div>
-                    <div style="flex:1;">
-                        <div class="analyse-name">Glycémie HbA1c</div>
-                        <div class="analyse-date">22 mars 2026</div>
-                    </div>
-                    <div>
-                        <div class="analyse-val warn">7.2%</div>
-                        <div class="analyse-bar-wrap" style="margin-top:4px;">
-                            <div class="analyse-bar-bg"><div class="analyse-bar-fill" style="width:62%;background:var(--amber);"></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="analyse-item">
-                    <div style="width:34px;height:34px;border-radius:9px;background:var(--blue-lt);color:var(--blue);display:grid;place-items:center;font-size:16px;flex-shrink:0;">💧</div>
-                    <div style="flex:1;">
-                        <div class="analyse-name">Cholestérol LDL</div>
-                        <div class="analyse-date">22 mars 2026</div>
-                    </div>
-                    <div>
-                        <div class="analyse-val ok">1.05 g/L</div>
-                        <div class="analyse-bar-wrap" style="margin-top:4px;">
-                            <div class="analyse-bar-bg"><div class="analyse-bar-fill" style="width:45%;background:var(--blue);"></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="analyse-item">
-                    <div style="width:34px;height:34px;border-radius:9px;background:var(--red-lt);color:var(--red);display:grid;place-items:center;font-size:16px;flex-shrink:0;">❤️</div>
-                    <div style="flex:1;">
-                        <div class="analyse-name">Créatinine</div>
-                        <div class="analyse-date">22 mars 2026</div>
-                    </div>
-                    <div>
-                        <div class="analyse-val bad">1.42 mg/dL</div>
-                        <div class="analyse-bar-wrap" style="margin-top:4px;">
-                            <div class="analyse-bar-bg"><div class="analyse-bar-fill" style="width:85%;background:var(--red);"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- HISTORIQUE -->
-        <div class="card">
-            <div class="card-hd">
-                <div>
-                    <div class="card-title">Historique médical</div>
-                    <div class="card-sub">Consultations passées</div>
-                </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:0;">
-
-                <div style="display:flex;gap:14px;padding-bottom:16px;position:relative;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:3px;"></div>
-                        <div style="width:1px;flex:1;background:var(--border);margin-top:4px;"></div>
-                    </div>
-                    <div style="flex:1;padding-bottom:4px;">
-                        <div style="font-size:13px;font-weight:700;">Consultation générale</div>
-                        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Dr. Boubbou · Suivi HTA & Diabète</div>
-                        <div style="font-size:11px;color:var(--hint);margin-top:3px;">7 avril 2026</div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:14px;padding-bottom:16px;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <div style="width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:3px;"></div>
-                        <div style="width:1px;flex:1;background:var(--border);margin-top:4px;"></div>
-                    </div>
-                    <div style="flex:1;">
-                        <div style="font-size:13px;font-weight:700;">Bilan sanguin complet</div>
-                        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Laboratoire Central · 4 analyses</div>
-                        <div style="font-size:11px;color:var(--hint);margin-top:3px;">22 mars 2026</div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:14px;padding-bottom:16px;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <div style="width:10px;height:10px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px;"></div>
-                        <div style="width:1px;flex:1;background:var(--border);margin-top:4px;"></div>
-                    </div>
-                    <div style="flex:1;">
-                        <div style="font-size:13px;font-weight:700;">Suivi cardiologique</div>
-                        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Dr. Martin · ECG normal</div>
-                        <div style="font-size:11px;color:var(--hint);margin-top:3px;">10 mars 2026</div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:14px;padding-bottom:16px;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:3px;"></div>
-                        <div style="width:1px;flex:1;background:var(--border);margin-top:4px;"></div>
-                    </div>
-                    <div style="flex:1;">
-                        <div style="font-size:13px;font-weight:700;">Renouvellement ordonnance</div>
-                        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Dr. Boubbou · Metformine + Amlodipine</div>
-                        <div style="font-size:11px;color:var(--hint);margin-top:3px;">18 fév. 2026</div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:14px;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <div style="width:10px;height:10px;border-radius:50%;background:var(--hint);flex-shrink:0;margin-top:3px;"></div>
-                    </div>
-                    <div style="flex:1;">
-                        <div style="font-size:13px;font-weight:700;">Consultation générale</div>
-                        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Dr. Boubbou · Contrôle tension</div>
-                        <div style="font-size:11px;color:var(--hint);margin-top:3px;">5 janv. 2026</div>
-                    </div>
-                </div>
 
 
 @endsection

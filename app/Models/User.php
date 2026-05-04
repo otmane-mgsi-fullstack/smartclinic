@@ -7,6 +7,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Patient\App\Models\Patient;
+use Modules\Admin\App\Models\Admin;
 
 class User extends Authenticatable
 {
@@ -42,6 +44,16 @@ class User extends Authenticatable
     public function medecin()
     {
         return $this->hasOne(\Modules\Medecin\App\Models\Medecin::class, 'user_id');
+    }
+
+    public function patient()
+    {
+        return $this->hasOne(Patient::class, 'user_id');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
     }
     /**
      * The attributes that should be hidden for serialization.
