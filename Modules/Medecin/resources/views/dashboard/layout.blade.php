@@ -33,7 +33,9 @@
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+            a {
+                text-decoration: none;
+            }
         body {
             background: var(--bg);
             color: var(--text);
@@ -180,12 +182,12 @@
     <div class="nav-group-label">Mon espace</div>
     <div class="nav-link active"><a href="{{ route('medecin.dashboard') }}"><i class="bi bi-grid-1x2"></i>Tableau de bord </a></div>
     <div class="nav-link"><a href="{{route('medecin.dispo.index')}}"><i class="bi bi-calendar-week"></i> Mon planning </a></div>
+    <div class="nav-link"><a href="{{route('medecin.rdv')}}"><i class="bi bi-calendar-week"></i> Mes rendez_vous </a></div>
     <div class="nav-link"><i class="bi bi-person-lines-fill"></i> Mes patients <span class="badge-num">3</span></div>
     <div class="nav-link"><i class="bi bi-folder2-open"></i> Dossiers médicaux</div>
 
     <div class="nav-group-label">Clinique</div>
     <div class="nav-link"><i class="bi bi-capsule"></i> Ordonnances</div>
-    <div class="nav-link"><i class="bi bi-activity"></i> Résultats analyses</div>
     <div class="nav-link"><i class="bi bi-chat-dots"></i> Messagerie <span class="badge-num">5</span></div>
 
     <div class="nav-group-label">Compte</div>
