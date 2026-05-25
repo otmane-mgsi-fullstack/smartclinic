@@ -30,6 +30,11 @@ class Patient extends Model
     {
         return $this->hasMany(\Modules\Rdv\App\Models\RendezVous::class);
     }
+
+    public function documents()
+    {
+        return $this->hasMany(\Modules\Document\App\Models\Document::class);
+    }
     // protected static function newFactory(): PatientFactory
     // {
     //     // return PatientFactory::new();

@@ -81,36 +81,36 @@
             <span class="logo-text">MedConnect</span>
         </div>
 
-        <div class="nav-item active">
+        <a href="{{ route('patient.dashboard') }}" class="nav-item {{ Route::is('patient.dashboard') ? 'active' : '' }}" style="text-decoration: none;">
             <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Tableau de bord
-        </div>
+        </a>
 
         <div class="nav-section">Soins</div>
 
-        <div class="nav-item">
+        <a href="{{ route('patient.mes_rdvs') }}" class="nav-item {{ Route::is('patient.mes_rdvs') ? 'active' : '' }}" style="text-decoration: none;">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
             Mes rendez-vous
-            <span class="nav-badge">2</span>
-        </div>
+            <span class="nav-badge">{{ $rdvAVenirCount ?? 0 }}</span>
+        </a>
 
-        <div class="nav-item">
+        <a href="{{ route('patient.documents') }}" class="nav-item {{ Route::is('patient.documents') ? 'active' : '' }}" style="text-decoration: none;">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
             Mes documents
-        </div>
+        </a>
 
-        <div class="nav-item">
+        <a href="{{ route('patient.disponibilites') }}" class="nav-item {{ Route::is('patient.disponibilites') ? 'active' : '' }}" style="text-decoration: none;">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm0-10h2v8h-2z"/></svg>
             Disponibilités
-        </div>
+        </a>
 
         <div class="nav-section">Communication</div>
 
-        <div class="nav-item" style="opacity:.6;cursor:not-allowed">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+        <a href="{{ route('patient.messages') }}" class="nav-item {{ Route::is('patient.messages') ? 'active' : '' }}" style="text-decoration: none;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm0 16H6l-2 2V4h16v12z"/></svg>
             Messages
             <span class="nav-badge" style="background:var(--amber-lt);color:var(--amber)">Bientôt</span>
-        </div>
+        </a>
 
         <div class="nav-section" style="margin-top:auto">Compte</div>
         <div class="nav-item">
@@ -122,33 +122,46 @@
     <main class="main">
         <div class="topbar">
             <div class="greeting">
-                <h1>Bonjour, Mohamed</h1>
-                <p>Dimanche 3 mai 2026 — voici votre espace santé</p>
+                <h1>Bonjour, {{ Auth::user()->name }}</h1>
+                <p>{{ \Carbon\Carbon::now()->translatedFormat('l j F Y') }} — voici votre espace santé</p>
             </div>
             <div style="display:flex;align-items:center;gap:12px">
               <a href="{{Route('rdv.index')}}">  <button class="btn-rdv">
                     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
                     Prendre RDV
                   </button> </a>
-                <div class="avatar">MH</div>
+                <div class="avatar">
+                    @php
+                        $initials = '';
+                        if (Auth::check()) {
+                            $parts = explode(' ', Auth::user()->name);
+                            $initials = strtoupper(substr($parts[0], 0, 1) . (isset($parts[1]) ? substr($parts[1], 0, 1) : ''));
+                        }
+                    @endphp
+                    {{ $initials ?: 'PA' }}
+                </div>
             </div>
         </div>
 
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-label">Prochain rendez-vous</div>
-                <div class="stat-val">8 mai</div>
-                <div class="stat-sub stat-green">Dr. Alami — Cardiologue</div>
+                <div class="stat-val" style="font-size: 15px; font-weight: bold; margin-bottom: 4px;">
+                    {{ $prochainRdv ? \Carbon\Carbon::parse($prochainRdv->date_heure)->translatedFormat('d M Y à H:i') : 'Aucun' }}
+                </div>
+                <div class="stat-sub stat-green">
+                    {{ $prochainRdv ? 'Dr. ' . $prochainRdv->medecin->user->name . ' — ' . $prochainRdv->medecin->specialite : 'Pas de RDV programmé' }}
+                </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">RDV à venir</div>
-                <div class="stat-val">2</div>
-                <div class="stat-sub stat-blue" style="color:var(--blue)">Ce mois-ci</div>
+                <div class="stat-val">{{ $rdvAVenirCount ?? 0 }}</div>
+                <div class="stat-sub stat-blue" style="color:var(--blue)">Confirmé(s) / Planifié(s)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Documents disponibles</div>
-                <div class="stat-val">5</div>
-                <div class="stat-sub" style="color:var(--muted)">Ordonnances &amp; rapports</div>
+                <div class="stat-val">{{ $docsCount ?? 0 }}</div>
+                <div class="stat-sub" style="color:var(--muted)">Dans votre dossier médical</div>
             </div>
         </div>
         <!-- Content -->

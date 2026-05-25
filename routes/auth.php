@@ -66,4 +66,4 @@ Route::middleware('auth')->group(function () {
 */
 Route::get('/admin/dashboard', fn () => view('admin::dashboard.index'))->name('admin.dashboard');
 // Route::get('/medecin/dashboard', fn () => view('medecin::dashboard.index'))->name('medecin.dashboard');
-Route::get('/patient/dashboard', fn () => view('patient::dashboard.index'))->name('patient.dashboard');
+// Route::get('/patient/dashboard', fn () => view('patient::dashboard.index'))->name('patient.dashboard');
