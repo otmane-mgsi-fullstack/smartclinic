@@ -25,6 +25,7 @@
                 <th>Email</th>
                 <th>Spécialité</th>
                 <th>Téléphone</th>
+                <th>...</th>
             </tr>
             </thead>
 
@@ -44,6 +45,10 @@
                     <!-- depuis medecin -->
                     <td>{{ $medecin->specialite }}</td>
                     <td>{{ $medecin->tarif_consultation }}</td>
+                    <td>
+                        <i class="bi bi-trash-fill"></i>
+                        <i class="bi bi-pencil"></i>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

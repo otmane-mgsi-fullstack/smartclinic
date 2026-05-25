@@ -24,10 +24,10 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store']);
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-    Route::post('reset-password', [NewPasswordController::class, 'store']);
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
 
 /*
@@ -65,5 +65,5 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::get('/admin/dashboard', fn () => view('admin::dashboard.index'))->name('admin.dashboard');
-Route::get('/medecin/dashboard', fn () => view('medecin::dashboard.index'))->name('medecin.dashboard');
+// Route::get('/medecin/dashboard', fn () => view('medecin::dashboard.index'))->name('medecin.dashboard');
 Route::get('/patient/dashboard', fn () => view('patient::dashboard.index'))->name('patient.dashboard');

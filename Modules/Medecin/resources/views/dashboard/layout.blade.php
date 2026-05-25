@@ -33,9 +33,9 @@
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-            a {
-                text-decoration: none;
-            }
+        a {
+            text-decoration: none;
+        }
         body {
             background: var(--bg);
             color: var(--text);
@@ -83,6 +83,13 @@
             color: var(--muted); font-size: 13.5px; font-weight: 600;
             cursor: pointer; transition: all 0.16s;
             margin-bottom: 2px;
+        }
+        .nav-link a {
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
         }
         .nav-link i { font-size: 15px; width: 18px; flex-shrink: 0; }
         .nav-link:hover { background: var(--surface2); color: var(--text); }
@@ -180,11 +187,11 @@
     </div>
 
     <div class="nav-group-label">Mon espace</div>
-    <div class="nav-link active"><a href="{{ route('medecin.dashboard') }}"><i class="bi bi-grid-1x2"></i>Tableau de bord </a></div>
-    <div class="nav-link"><a href="{{route('medecin.dispo.index')}}"><i class="bi bi-calendar-week"></i> Mon planning </a></div>
-    <div class="nav-link"><a href="{{route('medecin.rdv')}}"><i class="bi bi-calendar-week"></i> Mes rendez_vous </a></div>
-    <div class="nav-link"><i class="bi bi-person-lines-fill"></i> Mes patients <span class="badge-num">3</span></div>
-    <div class="nav-link"><i class="bi bi-folder2-open"></i> Dossiers médicaux</div>
+    <div class="nav-link {{ Route::is('medecin.dashboard') ? 'active' : '' }}"><a href="{{ route('medecin.dashboard') }}"><i class="bi bi-grid-1x2"></i>Tableau de bord </a></div>
+    <div class="nav-link {{ Route::is('medecin.dispo.*') ? 'active' : '' }}"><a href="{{route('medecin.dispo.index')}}"><i class="bi bi-calendar-week"></i> Mon planning </a></div>
+    <div class="nav-link {{ Route::is('medecin.rdv') ? 'active' : '' }}"><a href="{{route('medecin.rdv')}}"><i class="bi bi-calendar-week"></i> Mes rendez_vous </a></div>
+    <div class="nav-link {{ Route::is('medecin.patients.*') ? 'active' : '' }}"><a href="{{ route('medecin.patients.index') }}"><i class="bi bi-person-lines-fill"></i> Mes patients <span class="badge-num">{{ $nbTotalPatients ?? 0 }}</span></a></div>
+    <div class="nav-link {{ Route::is('medecin.documents.*') ? 'active' : '' }}"><a href="{{ route('medecin.documents.index') }}"><i class="bi bi-folder2-open"></i> Dossiers médicaux</a></div>
 
     <div class="nav-group-label">Clinique</div>
     <div class="nav-link"><i class="bi bi-capsule"></i> Ordonnances</div>
@@ -197,19 +204,28 @@
 
     <div class="doc-card">
         <div class="doc-card-top">
-            <div class="doc-avatar">DB</div>
+            <div class="doc-avatar">
+                @php
+                    $initials = '';
+                    if (Auth::check()) {
+                        $parts = explode(' ', Auth::user()->name);
+                        $initials = strtoupper(substr($parts[0], 0, 1) . (isset($parts[1]) ? substr($parts[1], 0, 1) : ''));
+                    }
+                @endphp
+                {{ $initials ?: 'DR' }}
+            </div>
             <div>
-                <div class="doc-name">Dr. Boubbou</div>
-                <div class="doc-spec">Médecine Générale</div>
+                <div class="doc-name">Dr. {{ Auth::user()->name }}</div>
+                <div class="doc-spec">{{ Auth::user()->medecin->specialite ?? 'Généraliste' }}</div>
             </div>
         </div>
         <div class="doc-stats">
             <div class="doc-stat">
-                <div class="doc-stat-val">12</div>
+                <div class="doc-stat-val">{{ $nbRdvAujourdhui ?? 0 }}</div>
                 <div class="doc-stat-label">RDV aujourd'hui</div>
             </div>
             <div class="doc-stat">
-                <div class="doc-stat-val">248</div>
+                <div class="doc-stat-val">{{ $nbTotalPatients ?? 0 }}</div>
                 <div class="doc-stat-label">Mes patients</div>
             </div>
         </div>
@@ -222,18 +238,18 @@
     <!-- TOPBAR -->
     <div class="topbar">
         <div>
-            <div class="greeting">Bonjour, <em></em> 👋</div>
-            <div class="topbar-sub">Mardi 7 avril 2026 · Vous avez 12 consultations aujourd'hui</div>
+            <div class="greeting">Bonjour, <em>Dr. {{ Auth::user()->name }}</em> 👋</div>
+            <div class="topbar-sub">{{ $dateAffichage ?? \Carbon\Carbon::now()->translatedFormat('l j F Y') }} · Vous avez {{ $nbRdvAujourdhui ?? 0 }} consultation(s) aujourd'hui</div>
         </div>
         <div class="topbar-actions">
             <div class="topbar-pill">
                 <i class="bi bi-calendar3" style="color:var(--blue);"></i>
-                <span>7 Avril 2026</span>
+                <span>{{ \Carbon\Carbon::now()->translatedFormat('d M Y') }}</span>
             </div>
-            <div class="topbar-pill" style="background:var(--blue);border-color:var(--blue);color:#fff;">
+            <a href="{{ route('medecin.patients.create') }}" class="topbar-pill" style="background:var(--blue);border-color:var(--blue);color:#fff;">
                 <i class="bi bi-plus-lg"></i>
-                <span style="color:#fff;">Nouveau RDV</span>
-            </div>
+                <span style="color:#fff;">Nouveau Patient</span>
+            </a>
             <div class="notif-btn">
                 <i class="bi bi-bell"></i>
                 <div class="notif-dot"></div>
@@ -243,6 +259,6 @@
 
 
 
-    @yield('content')
+@yield('content')
 
 </body>

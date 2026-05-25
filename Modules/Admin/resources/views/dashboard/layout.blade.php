@@ -172,19 +172,17 @@
     </div>
 
     <div class="nav-section">Principal</div>
-    <div class="nav-item active"><a href="{{route('admin.dashboard')}}"><i class="bi bi-speedometer2"></i> Tableau de bord</a></div>
-    <div class="nav-item"><i class="bi bi-calendar-check"></i> Rendez-vous <span class="nav-badge">7</span></div>
-    <div class="nav-item"><a href="{{route('admin.medecin.index')}}"><i class="bi bi-person"></i> Médecin</a> </div>
-    <div class="nav-item"><a href="{{route('admin.patient.index')}}"><i class="bi bi-people"></i> Patients</a></div>
+    <div class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><a href="{{route('admin.dashboard')}}"><i class="bi bi-speedometer2"></i> Tableau de bord</a></div>
+    <div class="nav-item {{ request()->routeIs('admin.rdv.*') ? 'active' : '' }}"><a href="{{route('admin.rdv.index')}}"><i class="bi bi-calendar-check"></i> Rendez-vous <span class="nav-badge">{{ \Modules\Rdv\App\Models\RendezVous::where('statut', 'planifie')->count() }}</span></a></div>
+    <div class="nav-item {{ request()->routeIs('admin.medecin.*') ? 'active' : '' }}"><a href="{{route('admin.medecin.index')}}"><i class="bi bi-person"></i> Médecin</a> </div>
+    <div class="nav-item {{ request()->routeIs('admin.patient.*') ? 'active' : '' }}"><a href="{{route('admin.patient.index')}}"><i class="bi bi-people"></i> Patients</a></div>
     <div class="nav-item"><i class="bi bi-clipboard2-pulse"></i> Dossiers médicaux</div>
 
     <div class="nav-section">Gestion</div>
     <div class="nav-item"><i class="bi bi-receipt"></i> Facturation <span class="nav-badge">19</span></div>
-    <div class="nav-item"><i class="bi bi-hospital"></i> Services</div>
-    <div class="nav-item"><i class="bi bi-bar-chart-line"></i> Rapports</div>
+
 
     <div class="nav-section">Système</div>
-    <div class="nav-item"><i class="bi bi-shield-check"></i> Sécurité</div>
     <div class="nav-item"><i class="bi bi-gear"></i> Paramètres</div>
 
     <div class="sidebar-stats">
@@ -213,12 +211,12 @@
     <div class="topbar">
         <div class="topbar-left">
             <h2>Tableau de bord</h2>
-            <p>Bienvenue, Dr. Boubbou — aperçu du mardi 7 avril 2026</p>
+            <p>Bienvenue, Dr. Boubbou — aperçu du {{ \Carbon\Carbon::now()->locale('fr')->translatedFormat('l j F Y') }}</p>
         </div>
         <div class="topbar-right">
             <div class="date-badge">
                 <i class="bi bi-calendar3" style="color:var(--accent);font-size:14px;"></i>
-                <span>7 Avril 2026</span>
+                <span>{{ \Carbon\Carbon::now()->locale('fr')->translatedFormat('j F Y') }}</span>
             </div>
             <div class="search-box">
                 <i class="bi bi-search"></i>

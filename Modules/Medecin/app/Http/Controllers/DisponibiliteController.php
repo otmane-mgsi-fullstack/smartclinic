@@ -68,26 +68,26 @@ class DisponibiliteController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+        $medecin = auth()->user()->medecin;
 
+        if (!$medecin) {
+            abort(403, 'Aucun profil médecin trouvé');
+        }
 
         // 1. Validation
-
         $request->validate([
             'date' => 'required|date',
             'heure_debut' => [
                 'required',
                 Rule::unique('disponibilites')
-                    ->where(function ($query) use ($request) {
+                    ->where(function ($query) use ($request, $medecin) {
                         return $query->where('date', $request->date)
-                            ->where('medecin_id', auth()->user()->medecin->id);
+                            ->where('medecin_id', $medecin->id);
                     })
             ],
             'heure_fin' => 'required|after:heure_debut',
             'statut' => 'required|in:disponible,reserve,indisponible',
         ]);
-
-
-        $medecin = auth()->user()->medecin;
 
         // 2. Création
         $disponibilite = new Disponibilite();

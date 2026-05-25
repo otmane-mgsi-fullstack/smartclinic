@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-
-    <!-- CSS ici -->
-    <link rel="stylesheet" href="{{ asset('css/medecin/index.css') }}">
-
-</head>
-
-
-
-<body>
 @extends('medecin::dashboard.layout')
 
-
 @section('content')
-
-
-
-
+    <!-- CSS direct pour personnalisations supplémentaires -->
+    <link rel="stylesheet" href="{{ asset('css/medecin/index.css') }}">
+    <style>
+        .status-pill { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-block; }
+        .status-ordonnance { background: var(--blue-lt); color: var(--blue); }
+        .status-analyse { background: var(--teal-lt); color: var(--teal); }
+        .status-radio { background: var(--amber-lt); color: var(--amber); }
+        .status-autre { background: var(--green-lt); color: var(--green); }
+        
+        .timeline-container { display: flex; flex-direction: column; gap: 12px; }
+        .timeline-item { display: flex; gap: 15px; border-left: 2px solid var(--border); padding-left: 20px; position: relative; margin-left: 10px; }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--blue); }
+        .timeline-item.done::before { background: var(--green); }
+        .timeline-item.cancelled::before { background: var(--red); }
+        .timeline-time { font-weight: 700; color: var(--text); min-width: 50px; }
+        .timeline-content { flex: 1; background: var(--surface2); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--blue); }
+        .timeline-content.done { border-left-color: var(--green); }
+        .timeline-content.cancelled { border-left-color: var(--red); }
+    </style>
 
     <!-- STAT BAND -->
     <div class="stat-band">
@@ -26,32 +27,32 @@
             <div class="stat-ico blue"><i class="bi bi-calendar-check"></i></div>
             <div>
                 <div class="stat-label">Consultations aujourd'hui</div>
-                <div class="stat-val">12</div>
-                <div class="stat-note up">4 restantes</div>
+                <div class="stat-val">{{ $nbRdvAujourdhui }}</div>
+                <div class="stat-note">Prévues ce jour</div>
             </div>
         </div>
         <div class="stat-card">
             <div class="stat-ico teal"><i class="bi bi-people"></i></div>
             <div>
                 <div class="stat-label">Patients vus ce mois</div>
-                <div class="stat-val">87</div>
-                <div class="stat-note up">↑ +11 vs mois dernier</div>
+                <div class="stat-val">{{ $nbPatientsCeMois }}</div>
+                <div class="stat-note">Consultations uniques</div>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-ico amber"><i class="bi bi-clock-history"></i></div>
+            <div class="stat-ico amber"><i class="bi bi-folder-fill"></i></div>
             <div>
-                <div class="stat-label">Dossiers en attente</div>
-                <div class="stat-val">6</div>
-                <div class="stat-note warn">À compléter</div>
+                <div class="stat-label">Documents (Dossiers)</div>
+                <div class="stat-val">{{ $nbTotalDocuments }}</div>
+                <div class="stat-note">Fichiers uploadés</div>
             </div>
         </div>
         <div class="stat-card">
             <div class="stat-ico green"><i class="bi bi-clipboard2-pulse"></i></div>
             <div>
                 <div class="stat-label">Ordonnances émises</div>
-                <div class="stat-val">34</div>
-                <div class="stat-note">Ce mois-ci</div>
+                <div class="stat-val">{{ $nbOrdonnances }}</div>
+                <div class="stat-note">Depuis la clinique</div>
             </div>
         </div>
     </div>
@@ -64,237 +65,140 @@
             <div class="card-hd">
                 <div>
                     <div class="card-title">Mon planning du jour</div>
-                    <div class="card-sub">Mardi 7 avril · 12 consultations</div>
+                    <div class="card-sub">{{ $dateAffichage }} · {{ $rdvsAujourdhui->count() }} consultation(s)</div>
                 </div>
-                <button class="pill-btn"><i class="bi bi-plus"></i> Ajouter</button>
+                <a href="{{ route('medecin.patients.create') }}" class="pill-btn"><i class="bi bi-plus"></i> Ajouter Patient</a>
             </div>
 
-            <div class="planning-cols">
-                <!-- Heures -->
-                <div class="time-col">
-                    <div class="time-slot">08:00</div>
-                    <div class="time-slot">09:00</div>
-                    <div class="time-slot">10:00</div>
-                    <div class="time-slot">11:00</div>
-                    <div class="time-slot">14:00</div>
-                    <div class="time-slot">15:00</div>
-                    <div class="time-slot">16:00</div>
-                    <div class="time-slot">17:00</div>
-                </div>
-                <!-- Événements -->
-                <div class="events-col">
-                    <div class="now-line"></div>
-
-                    <div class="event-slot">
-                        <div class="event-card green">
-                            <div class="ev-ico">YA</div>
-                            <div><div class="ev-name">Youssef Alami</div><div class="ev-detail">Consultation générale · Suivi tension</div></div>
-                            <div class="ev-time">08:00 – 08:30</div>
+            <div class="timeline-container">
+                @forelse($rdvsAujourdhui as $rdv)
+                    @php
+                        $isDone = $rdv->statut === 'termine';
+                        $isCancelled = $rdv->statut === 'annule';
+                        $class = $isDone ? 'done' : ($isCancelled ? 'cancelled' : '');
+                    @endphp
+                    <div class="timeline-item {{ $class }}">
+                        <div class="timeline-time">{{ \Carbon\Carbon::parse($rdv->date_heure)->format('H:i') }}</div>
+                        <div class="timeline-content {{ $class }}">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <strong>{{ $rdv->patient->user->name }}</strong>
+                                <span class="badge-pill" style="font-size: 10px; background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">
+                                    {{ ucfirst($rdv->statut) }}
+                                </span>
+                            </div>
+                            <div style="font-size: 12px; color: var(--muted); margin-top: 3px;">
+                                Motif : {{ $rdv->motif ?: 'Consultation générale' }}
+                            </div>
                         </div>
                     </div>
-                    <div class="event-slot">
-                        <div class="event-card blue">
-                            <div class="ev-ico">NH</div>
-                            <div><div class="ev-name">Nour El Houda</div><div class="ev-detail">Première consultation · Nouveau patient</div></div>
-                            <div class="ev-time">09:00 – 09:45</div>
-                        </div>
+                @empty
+                    <div style="text-align: center; padding: 40px; color: var(--muted);">
+                        <i class="bi bi-calendar-x" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 10px;">Aucun rendez-vous planifié pour aujourd'hui.</p>
                     </div>
-                    <div class="event-slot">
-                        <div class="event-card teal">
-                            <div class="ev-ico">MD</div>
-                            <div><div class="ev-name">Marie Dupont</div><div class="ev-detail">Résultats analyses · Bilan sanguin</div></div>
-                            <div class="ev-time">10:00 – 10:30</div>
-                        </div>
-                    </div>
-                    <div class="event-slot">
-                        <div class="event-card amber">
-                            <div class="ev-ico">KM</div>
-                            <div><div class="ev-name">Karim Mansouri</div><div class="ev-detail">Renouvellement ordonnance · Diabète</div></div>
-                            <div class="ev-time">11:00 – 11:30</div>
-                        </div>
-                    </div>
-                    <div class="event-slot">
-                        <div class="event-card blue">
-                            <div class="ev-ico">AB</div>
-                            <div><div class="ev-name">Amina Benali</div><div class="ev-detail">Consultation pédiatrique · Vaccins</div></div>
-                            <div class="ev-time">14:00 – 14:30</div>
-                        </div>
-                    </div>
-                    <div class="event-slot">
-                        <div class="event-card red">
-                            <div class="ev-ico">HO</div>
-                            <div><div class="ev-name">Hassan Ouali</div><div class="ev-detail">Urgence · Douleurs thoraciques</div></div>
-                            <div class="ev-time">15:00 – 15:45</div>
-                        </div>
-                    </div>
-                    <div class="event-slot">
-                        <div class="event-card green">
-                            <div class="ev-ico">FL</div>
-                            <div><div class="ev-name">Fatima Larbi</div><div class="ev-detail">Suivi post-opératoire · Contrôle</div></div>
-                            <div class="ev-time">16:00 – 16:30</div>
-                        </div>
-                    </div>
-                    <div class="event-slot">
-                        <div class="event-card teal">
-                            <div class="ev-ico">SB</div>
-                            <div><div class="ev-name">Sophie Bernard</div><div class="ev-detail">Consultation dermatologique</div></div>
-                            <div class="ev-time">17:00 – 17:30</div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
 
-        <!-- PATIENTS DU JOUR -->
+        <!-- PATIENTS DU JOUR (Raccourcis vers dossiers) -->
         <div class="card">
             <div class="card-hd">
                 <div>
-                    <div class="card-title">Patients du jour</div>
-                    <div class="card-sub">12 consultations prévues</div>
+                    <div class="card-title">Patients d'aujourd'hui</div>
+                    <div class="card-sub">Accès rapide aux dossiers</div>
                 </div>
-                <i class="bi bi-funnel" style="color:var(--muted);font-size:16px;cursor:pointer;"></i>
             </div>
             <div class="patient-list">
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#dbeafe;color:var(--blue);">NH</div>
-                    <div>
-                        <div class="pt-name">Nour El Houda</div>
-                        <div class="pt-info">09:00 · Consultation générale</div>
+                @forelse($rdvsAujourdhui as $rdv)
+                    @php
+                        $nameParts = explode(' ', $rdv->patient->user->name);
+                        $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+                    @endphp
+                    <a href="{{ route('medecin.documents.index', ['patient_id' => $rdv->patient->id]) }}" class="patient-row" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; border: 1px solid var(--border);">
+                        <div class="pt-avatar" style="background:#dbeafe; color:var(--blue);">{{ $initials }}</div>
+                        <div>
+                            <div class="pt-name">{{ $rdv->patient->user->name }}</div>
+                            <div class="pt-info">{{ \Carbon\Carbon::parse($rdv->date_heure)->format('H:i') }} · {{ substr($rdv->motif, 0, 20) }}...</div>
+                        </div>
+                        <i class="bi bi-folder2-open" style="margin-left: auto; color: var(--muted);"></i>
+                    </a>
+                @empty
+                    <div style="text-align: center; padding: 20px; color: var(--muted); font-size: 12px;">
+                        Aucun patient aujourd'hui.
                     </div>
-                    <span class="pt-badge new">Nouveau</span>
-                </div>
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#d1fae5;color:var(--green);">YA</div>
-                    <div>
-                        <div class="pt-name">Youssef Alami</div>
-                        <div class="pt-info">08:00 · Suivi tension</div>
-                    </div>
-                    <span class="pt-badge suivi">Suivi</span>
-                </div>
-                <div class="patient-row" style="border-color:var(--red);background:var(--red-lt);">
-                    <div class="pt-avatar" style="background:#fee2e2;color:var(--red);">HO</div>
-                    <div>
-                        <div class="pt-name">Hassan Ouali</div>
-                        <div class="pt-info">15:00 · Douleurs thoraciques</div>
-                    </div>
-                    <span class="pt-badge urgence">Urgence</span>
-                </div>
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#ccfbf1;color:var(--teal);">MD</div>
-                    <div>
-                        <div class="pt-name">Marie Dupont</div>
-                        <div class="pt-info">10:00 · Bilan sanguin</div>
-                    </div>
-                    <span class="pt-badge suivi">Suivi</span>
-                </div>
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#fef3c7;color:var(--amber);">KM</div>
-                    <div>
-                        <div class="pt-name">Karim Mansouri</div>
-                        <div class="pt-info">11:00 · Renouvellement ordonnance</div>
-                    </div>
-                    <span class="pt-badge suivi">Suivi</span>
-                </div>
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#dbeafe;color:var(--blue);">AB</div>
-                    <div>
-                        <div class="pt-name">Amina Benali</div>
-                        <div class="pt-info">14:00 · Vaccins pédiatriques</div>
-                    </div>
-                    <span class="pt-badge new">Nouveau</span>
-                </div>
-                <div class="patient-row">
-                    <div class="pt-avatar" style="background:#d1fae5;color:var(--green);">FL</div>
-                    <div>
-                        <div class="pt-name">Fatima Larbi</div>
-                        <div class="pt-info">16:00 · Suivi post-opératoire</div>
-                    </div>
-                    <span class="pt-badge suivi">Suivi</span>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>
 
-    <!-- BOTTOM GRID : Dossiers + Activité -->
-    <div class="bottom-grid">
-
+    <!-- BOTTOM GRID : Dossiers récents -->
+    <div class="bottom-grid" style="grid-template-columns: 1fr;">
         <!-- DOSSIERS RECENTS -->
         <div class="card">
             <div class="card-hd">
                 <div>
-                    <div class="card-title">Dossiers médicaux récents</div>
-                    <div class="card-sub">Dernières mises à jour</div>
+                    <div class="card-title">Documents médicaux récents</div>
+                    <div class="card-sub">Derniers fichiers uploadés par les patients</div>
                 </div>
-                <button class="pill-btn">Voir tout <i class="bi bi-arrow-right"></i></button>
+                <a href="{{ route('medecin.documents.index') }}" class="pill-btn">Voir tout <i class="bi bi-arrow-right"></i></a>
             </div>
-            <table>
+            <table class="table" style="width: 100%; border-collapse: collapse;">
                 <thead>
-                <tr>
-                    <th>Patient</th>
-                    <th>Âge</th>
-                    <th>Diagnostic</th>
-                    <th>Statut</th>
-                    <th>MAJ</th>
-                </tr>
+                    <tr>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Patient</th>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Type</th>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Document</th>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Taille</th>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Date d'ajout</th>
+                        <th style="padding: 12px; border-bottom: 2px solid var(--border);">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td style="font-weight:700;">Youssef Alami</td>
-                    <td style="color:var(--muted)">54 ans</td>
-                    <td>HTA · Diabète T2</td>
-                    <td><span class="status-dot suivi">En suivi</span></td>
-                    <td style="color:var(--muted);font-size:12px;">Aujourd'hui</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:700;">Marie Dupont</td>
-                    <td style="color:var(--muted)">38 ans</td>
-                    <td>Anémie ferriprive</td>
-                    <td><span class="status-dot stable">Stable</span></td>
-                    <td style="color:var(--muted);font-size:12px;">Hier</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:700;">Hassan Ouali</td>
-                    <td style="color:var(--muted)">61 ans</td>
-                    <td>Cardiopathie</td>
-                    <td><span class="status-dot critique">Critique</span></td>
-                    <td style="color:var(--muted);font-size:12px;">Aujourd'hui</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:700;">Fatima Larbi</td>
-                    <td style="color:var(--muted)">45 ans</td>
-                    <td>Post-op appendicite</td>
-                    <td><span class="status-dot stable">Stable</span></td>
-                    <td style="color:var(--muted);font-size:12px;">03/04</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:700;">Karim Mansouri</td>
-                    <td style="color:var(--muted)">49 ans</td>
-                    <td>Diabète T2</td>
-                    <td><span class="status-dot suivi">En suivi</span></td>
-                    <td style="color:var(--muted);font-size:12px;">01/04</td>
-                </tr>
+                    @forelse($documentsRecents as $doc)
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border); font-weight:700;">
+                                {{ $doc->patient->user->name }} <br>
+                                <small style="color:var(--muted); font-weight:normal;">CIN: {{ $doc->patient->cin }}</small>
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border);">
+                                <span class="status-pill status-{{ $doc->type_document }}">
+                                    {{ ucfirst($doc->type_document) }}
+                                </span>
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border);">
+                                <i class="bi bi-file-earmark-arrow-down" style="color:var(--blue); font-size:16px;"></i>
+                                <span style="font-weight: 500;">{{ $doc->nom_fichier }}</span>
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border); color:var(--muted);">
+                                {{ $doc->taille_fichier ? round($doc->taille_fichier / 1024, 1) . ' KB' : 'N/A' }}
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border); color:var(--muted); font-size:12px;">
+                                {{ $doc->date_upload->format('d M Y H:i') }}
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid var(--border);">
+                                <div style="display:flex; gap:6px;">
+                                    <a href="{{ route('medecin.documents.download', $doc->id) }}" class="btn btn-sm btn-outline-primary" style="padding: 2px 6px; font-size: 12px;" title="Télécharger">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                    <form action="{{ route('medecin.documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Voulez-vous supprimer ce document ?')" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" style="padding: 2px 6px; font-size: 12px;" title="Supprimer">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px; color: var(--muted);">
+                                Aucun document récent.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-
-        <!-- ACTIVITE CHART -->
-        <div class="card">
-            <div class="card-hd">
-                <div>
-                    <div class="card-title">Mes consultations</div>
-                    <div class="card-sub">Évolution sur 8 semaines</div>
-                </div>
-                <div class="chart-tabs">
-                    <div class="chart-tab active">Semaine</div>
-                    <div class="chart-tab">Mois</div>
-                </div>
-            </div>
-            <canvas id="actChart" height="175"></canvas>
-        </div>
-
     </div>
-    </main>
 @endsection
-
-</body>
-</html>

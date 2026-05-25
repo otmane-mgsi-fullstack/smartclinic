@@ -38,7 +38,7 @@ class MedecinController extends Controller
             'specialite' => $request->specialite,
             'tarif_consultation' => $request->tarif,
             'biographie' => $request->biographie,
-            'user_id' => $user->id, // 🔥 liaison ici
+            'user_id' => $user->id, //  liaison ici
         ]);
 
         return redirect()->route('admin.medecin.index')
@@ -74,3 +74,6 @@ class MedecinController extends Controller
      */
     public function destroy($id) {}
 }
+
+
+

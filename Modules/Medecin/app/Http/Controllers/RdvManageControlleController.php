@@ -11,8 +11,14 @@ class RdvManageControlleController extends Controller
     public function index()
     {
         // On récupère les RDV du médecin connecté
+        $medecin = auth()->user()->medecin;
+
+        if (!$medecin) {
+            abort(403, "Vous n'avez pas de profil médecin associé à votre compte.");
+        }
+
         $rdvs = RendezVous::with(['patient.user', 'disponibilite'])
-            ->where('medecin_id', auth()->user()->medecin->id)
+            ->where('medecin_id', $medecin->id)
             ->orderBy('date_heure', 'asc')
             ->get();
 
@@ -37,8 +43,7 @@ class RdvManageControlleController extends Controller
                 $dispo->statut = 'disponible';
             } else {
                 // Pour 'confirme' ou 'termine', il reste 'occupe'
-                $dispo->statut = 'occupe';
-            }
+                $dispo->statut = 'indisponible';            }
             $dispo->save();
         }
 
